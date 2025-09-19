@@ -1,4 +1,4 @@
-import words from '/words.js'
+import words from './words.js'
 
 const translationInput = document.getElementById('translation-input');
 const spanishSpan = document.getElementById('spanish-span');
