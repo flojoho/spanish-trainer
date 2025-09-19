@@ -1,0 +1,51 @@
+
+:root {
+  --white: #FFFFFF;
+  --light-gray: #DDDDDD;
+  --dark-gray: #111111;
+  --gray: hsl(0, 0%, 18%); /* #2c2c2c; */
+}
+
+body {
+  background-color: var(--gray);
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-family: monospace;
+}
+
+main {
+  width: 800px;
+  height: 450px;
+}
+main div {
+  margin: 50px;
+}
+
+input {
+  font-family: monospace;
+  width: 100%;
+}
+
+table {
+  padding: 0px;
+  width: 100%;
+}
+
+tr {
+  background-color: red;
+}
+
+td {
+  width: 33%;
+  padding: 5px;
+}
+
+.correct {
+  background-color: green;
+}
