@@ -32,17 +32,23 @@ form.addEventListener('submit', e => {
     const tr = document.createElement('tr');
     const td1 = document.createElement('td');
     const td2 = document.createElement('td');
-    const td3 = document.createElement('td');
+    const span1 = document.createElement('span');
+    const span2 = document.createElement('span');
+
+    const isCorrect = word[1] === word[2];
 
     td1.innerText = word[0];
-    td2.innerText = word[2];
-    td3.innerText = word[1];
+    span1.innerText = `${word[1]} `;
+    if(!isCorrect) span2.innerText = word[2];
 
-    if(word[1] === word[2]) tr.classList.add('correct');
+    span2.classList.add('linethrough');
+    td1.classList.add('left');
+    tr.classList.add(isCorrect ? 'correct' : 'incorrect');
 
+    td2.appendChild(span1);
+    td2.appendChild(span2);
     tr.appendChild(td1);
     tr.appendChild(td2);
-    tr.appendChild(td3);
     table.appendChild(tr);
   });
 
