@@ -42,7 +42,7 @@ form.addEventListener('submit', e => {
     td1.classList.add('left');
     tr.classList.add(isCorrect ? 'correct' : 'incorrect');
 
-    const visibleEntries = 7;
+    const visibleEntries = 8;
     const fadeoutFactor = (visibleEntries - index) / visibleEntries;
     tr.style.opacity = fadeoutFactor;
     const blurFactor = (1 - fadeoutFactor) * 0.2;

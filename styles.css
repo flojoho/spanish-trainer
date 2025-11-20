@@ -2,14 +2,14 @@
 :root {
   --white: #FFFFFF;
   --light-gray: #DDDDDD;
-  --dark-gray: #111111;
-  --gray: hsl(0, 0%, 12%); /* #2c2c2c; */
-  --black: hsl(0, 0%, 0%);
+  --gray: hsl(0, 0%, 50%);
+  --dark-gray: hsl(0, 0%, 18%);
+  --black: hsl(0, 0%, 10%);
   font-size: 1.2rem;
 }
 
 body {
-  background-color: var(--gray);
+  background-color: var(--black);
   width: 100vw;
   height: 100vh;
   padding: 0;
@@ -39,12 +39,12 @@ main {
 input {
   font-family: monospace;
   width: 100%;
-  background-color: var(--black);
+  background-color: var(--dark-gray);
   color: var(--white);
-  border: 1px var(--white) solid;
+  border: 2px var(--gray) solid;
   padding: 8px;
   font-size: inherit;
-  border-radius: 0.1rem;
+  border-radius: 0.2rem;
 }
 input:focus {
   outline-width: 0;
@@ -58,7 +58,7 @@ table {
 }
 
 tr {
-  background-color: var(--gray);
+  background-color: var(--black);
 }
 
 td {
