@@ -1,44 +1,49 @@
-import words from './words.js'
+import wordsArrays from './words.js'
 
 const translationInput = document.getElementById('translation-input');
 const spanishSpan = document.getElementById('spanish-span');
 const form = document.getElementById('form');
 const table = document.getElementById('table');
 
-const pastWords = [];
+const exercises = wordsArrays.map(array => {
+  return {
+    spanish: array[0],
+    english: array[1]
+  }
+});
+
+const pastExercises = [];
 
 let currentExercise;
 
-const getNewWord = () => {
-  const randomIndex = Math.floor(Math.random()*words.length);
-  currentExercise = [...words[randomIndex]]; // clone
-  const spanishWord = currentExercise[0];
-  spanishSpan.textContent = spanishWord;
+const getNewExercise = () => {
+  const randomIndex = Math.floor(Math.random() * exercises.length);
+
+  currentExercise = { ...exercises[randomIndex] }; // clone
+  spanishSpan.textContent = currentExercise.spanish;
 }
 
 form.addEventListener('submit', e => {
   e.preventDefault();
 
-  const guess = translationInput.value;
-
+  currentExercise.guess = translationInput.value;
   translationInput.value = '';
-
-  currentExercise.push(guess);
-  pastWords.push(currentExercise);
+  
+  pastExercises.push(currentExercise);
 
   table.innerHTML = '';
-  pastWords.slice(-10).reverse().forEach((word, index) => {
+  pastExercises.slice(-10).reverse().forEach((exercise, index) => {
     const tr = document.createElement('tr');
     const td1 = document.createElement('td');
     const td2 = document.createElement('td');
     const span1 = document.createElement('span');
     const span2 = document.createElement('span');
 
-    const isCorrect = word[1] === word[2].toLowerCase();
+    const isCorrect = exercise.english.toLowerCase() === exercise.guess.toLowerCase();
 
-    td1.innerText = word[0];
-    span1.innerText = `${word[1]} `;
-    if(!isCorrect) span2.innerText = word[2];
+    td1.innerText = exercise.spanish;
+    span1.innerText = `${exercise.english} `;
+    if(!isCorrect) span2.innerText = exercise.guess;
 
     span2.classList.add('linethrough');
     td1.classList.add('left');
@@ -57,7 +62,7 @@ form.addEventListener('submit', e => {
     table.prepend(tr);
   });
 
-  getNewWord();
+  getNewExercise();
 });
 
-getNewWord();
+getNewExercise();

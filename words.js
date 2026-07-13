@@ -14,7 +14,7 @@ console.log(result);
 */
 
 // https://strommeninc.com/1000-most-common-spanish-words-frequency-vocabulary/
-const words = [
+const wordsArrays = [
   ['como', 'as'],
   ['yo', 'I'],
   ['su', 'his'],
@@ -1017,5 +1017,5 @@ const words = [
   ['continente', 'continent'],
 ];
 
-export default words;
+export default wordsArrays;
 
