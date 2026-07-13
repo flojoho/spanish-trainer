@@ -7,11 +7,13 @@ const table = document.getElementById('table');
 
 const pastWords = [];
 
-let currentWord;
+let currentExercise;
 
 const getNewWord = () => {
-  currentWord = [...words[Math.floor(Math.random()*words.length)]];
-  spanishSpan.textContent = currentWord[0];
+  const randomIndex = Math.floor(Math.random()*words.length);
+  currentExercise = [...words[randomIndex]]; // clone
+  const spanishWord = currentExercise[0];
+  spanishSpan.textContent = spanishWord;
 }
 
 form.addEventListener('submit', e => {
@@ -21,8 +23,8 @@ form.addEventListener('submit', e => {
 
   translationInput.value = '';
 
-  currentWord.push(guess);
-  pastWords.push(currentWord);
+  currentExercise.push(guess);
+  pastWords.push(currentExercise);
 
   table.innerHTML = '';
   pastWords.slice(-10).reverse().forEach((word, index) => {
