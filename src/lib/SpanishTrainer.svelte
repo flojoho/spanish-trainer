@@ -4,15 +4,6 @@
   let translationInput: HTMLInputElement;
   let spanishSpan: HTMLSpanElement;
 
-  const getBlurStyle = (index: number, exerciseHistory: Exercise[]) => {
-    const visibleEntries = 8;
-    const blurIndex = (exerciseHistory.length - 1) - index;
-    const fadeoutFactor = (visibleEntries - blurIndex) / visibleEntries;
-    const blurFactor = (1 - fadeoutFactor) * 0.2;
-
-    return `opacity: ${fadeoutFactor}; filter: blur(${blurFactor}rem`;
-  }
-
   let exerciseHistory = $state<Exercise[]>([]);
 
   const exercises = wordsArrays.map(array => {
@@ -58,6 +49,15 @@
     exerciseHistory = pastExercises.slice(-10);
 
     getNewExercise();
+  };
+
+  const getBlurStyle = (index: number, exerciseHistory: Exercise[]) => {
+    const visibleEntries = 8;
+    const blurIndex = (exerciseHistory.length - 1) - index;
+    const fadeoutFactor = (visibleEntries - blurIndex) / visibleEntries;
+    const blurFactor = (1 - fadeoutFactor) * 0.2;
+
+    return `opacity: ${fadeoutFactor}; filter: blur(${blurFactor}rem`;
   };
 </script>
 
