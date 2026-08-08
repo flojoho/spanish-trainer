@@ -1018,4 +1018,3 @@ const wordsArrays = [
 ];
 
 export default wordsArrays;
-
