@@ -1,9 +1,8 @@
 <script lang="ts">
-  import wordsArrays from './words.js'
-
-  let translationInput: HTMLInputElement;
+  import wordsArrays from './words.js';
 
   let exerciseHistory = $state<Exercise[]>([]);
+  let translation = $state('');
 
   const exercises = wordsArrays.map(array => {
     return {
@@ -34,10 +33,10 @@
   const formSubmitHandler = (e: Event) => {
     e.preventDefault();
 
-    currentExercise.guess = translationInput.value;
+    currentExercise.guess = translation;
     currentExercise.isCorrect = currentExercise.english.toLowerCase() === currentExercise.guess!.toLowerCase();
 
-    translationInput.value = '';
+    translation = '';
     
     pastExercises.push(currentExercise);
     exerciseHistory = pastExercises.slice(-10);
@@ -45,22 +44,22 @@
     getNewExercise();
   };
 
-  const getBlurStyle = (index: number, exerciseHistory: Exercise[]) => {
+  const getBlurStyle = (index: number) => {
     const visibleEntries = 8;
     const blurIndex = (exerciseHistory.length - 1) - index;
     const fadeoutFactor = (visibleEntries - blurIndex) / visibleEntries;
     const blurFactor = (1 - fadeoutFactor) * 0.2;
 
-    return `opacity: ${fadeoutFactor}; filter: blur(${blurFactor}rem`;
+    return `opacity: ${fadeoutFactor}; filter: blur(${blurFactor}rem)`;
   };
 </script>
 
 <div class="container">
   <main>
-    <table id="table">
+    <table>
       <tbody>
         {#each exerciseHistory as exercise, index}
-          <tr class={exercise.isCorrect ? 'correct' : 'incorrect'} style={getBlurStyle(index, exerciseHistory)}>
+          <tr class={exercise.isCorrect ? 'correct' : 'incorrect'} style={getBlurStyle(index)}>
             <td>
               {exercise.spanish}
             </td>
@@ -72,15 +71,15 @@
         {/each}
       </tbody>
     </table>
-    <form id="form" on:submit={formSubmitHandler}>
+    <form onsubmit={formSubmitHandler}>
       <table>
         <tbody>
           <tr>
             <td class="left">
-              <span id="spanish-span">{currentExercise.spanish}</span>
+              <span>{currentExercise.spanish}</span>
             </td>
             <td class="no-padding">
-                <input id="translation-input" bind:this={translationInput} placeholder="translation (english)" autocomplete="off" autofocus />
+                <input bind:value={translation} placeholder="translation (english)" autocomplete="off" autofocus />
             </td>
           </tr>
         </tbody>
