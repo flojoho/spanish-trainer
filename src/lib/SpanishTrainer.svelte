@@ -1,26 +1,19 @@
 <script lang="ts">
-  import wordsArrays from './words.js';
+  import exercises from './words.js';
 
   let exerciseHistory = $state<Exercise[]>([]);
-  let translation = $state('');
-
-  const exercises = wordsArrays.map(array => {
-    return {
-      spanish: array[0],
-      english: array[1]
-    }
-  });
+  let english = $state('');
 
   type Exercise = {
     spanish: string,
-    english: string,
+    english: string[],
     guess?: string,
     isCorrect?: boolean
   };
 
   const pastExercises: Exercise[] = [];
 
-  let currentExercise = $state<Exercise>({spanish: '', english: ''});
+  let currentExercise = $state<Exercise>({spanish: '', english: ['']});
 
   const getNewExercise = () => {
     const randomIndex = Math.floor(Math.random() * exercises.length);
@@ -33,10 +26,13 @@
   const formSubmitHandler = (e: Event) => {
     e.preventDefault();
 
-    currentExercise.guess = translation;
-    currentExercise.isCorrect = currentExercise.english.toLowerCase() === currentExercise.guess!.toLowerCase();
+    currentExercise.guess = english;
+    currentExercise.isCorrect = currentExercise.english.some(
+      english => english === currentExercise.guess!.toLowerCase()
+    );
+    
 
-    translation = '';
+    english = '';
     
     pastExercises.push(currentExercise);
     exerciseHistory = pastExercises.slice(-10);
@@ -64,7 +60,7 @@
               {exercise.spanish}
             </td>
             <td>
-              <span>{`${exercise.english} `}</span>
+              <span>{`${exercise.english.join('/')} `}</span>
               <span class="linethrough">{exercise.isCorrect ? '' : exercise.guess}</span>
             </td>
           </tr>
@@ -79,7 +75,7 @@
               <span>{currentExercise.spanish}</span>
             </td>
             <td class="no-padding">
-                <input bind:value={translation} placeholder="translation (english)" autocomplete="off" autofocus />
+                <input bind:value={english} placeholder="translation (english)" autocomplete="off" autofocus />
             </td>
           </tr>
         </tbody>
