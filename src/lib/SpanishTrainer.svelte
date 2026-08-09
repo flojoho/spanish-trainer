@@ -2,7 +2,6 @@
   import wordsArrays from './words.js'
 
   let translationInput: HTMLInputElement;
-  let spanishSpan: HTMLSpanElement;
 
   let exerciseHistory = $state<Exercise[]>([]);
 
@@ -22,20 +21,15 @@
 
   const pastExercises: Exercise[] = [];
 
-  let currentExercise: Exercise;
+  let currentExercise = $state<Exercise>({spanish: '', english: ''});
 
-  let getNewExercise: () => void;
+  const getNewExercise = () => {
+    const randomIndex = Math.floor(Math.random() * exercises.length);
 
-  $effect(() => {
-    getNewExercise = () => {
-      const randomIndex = Math.floor(Math.random() * exercises.length);
+    currentExercise = { ...exercises[randomIndex] }; // clone
+  }
 
-      currentExercise = { ...exercises[randomIndex] }; // clone
-      spanishSpan.textContent = currentExercise.spanish;
-    }
-
-    getNewExercise();
-  });
+  getNewExercise();
 
   const formSubmitHandler = (e: Event) => {
     e.preventDefault();
@@ -83,7 +77,7 @@
         <tbody>
           <tr>
             <td class="left">
-              <span id="spanish-span" bind:this={spanishSpan}></span>
+              <span id="spanish-span">{currentExercise.spanish}</span>
             </td>
             <td class="no-padding">
                 <input id="translation-input" bind:this={translationInput} placeholder="translation (english)" autocomplete="off" autofocus />
